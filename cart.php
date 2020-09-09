@@ -17,6 +17,10 @@
   if (isset($_GET['increment'])) {
     increment();
   }
+
+  if (isset($_GET['del'])) {
+    unset($_SESSION['cart'][$_GET['del']]);
+  }
 ?>
 
 <!doctype html>
@@ -74,25 +78,50 @@
       </nav>
 
     <br>
+
     <?php if(sizeof($_SESSION['cart'])!=0) { ?>
       <div class="container">
-          <div class="row" style="display: flex; justify-content: space-between;">
-              <?php for ($i=0; $i < sizeof($_SESSION['cart']); $i++){ ?>
-              <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="./fortnite.jpg" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">Fortnite</h5>
-                  <p> <?php echo $_SESSION['cart'][$i] ?></p>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Buy</a>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row" style="display: flex; justify-content: space-between;">
+                <?php for ($i=0; $i < sizeof($_SESSION['cart']); $i++){ ?>
+                <div class="card" style="width: 18rem;">
+                  
+                  
+                  <a href='cart.php?del=<?php echo $i ?>'>
+                    <button type="button" class="close" style="cursor: pointer;" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </a>
+
+
+
+                  <img class="card-img-top" src="./fortnite.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Fortnite</h5>
+                    <p> <?php echo $_SESSION['cart'][$i] ?></p>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <!-- <a href="#" class="btn btn-primary">Buy</a> -->
+                  </div>
                 </div>
-              </div>
-              <?php } ?>
+                <?php } ?>
+            </div>
           </div>
+          
+          <div class="col-md-4"  style="padding-left: 30px">
+            <h5>Items are:</h5>
+            <?php for ($i=0; $i < sizeof($_SESSION['cart']); $i++){ ?>
+              <p style="padding: 5px; background-color: #9fa4c4;background-image: linear-gradient(315deg, #9fa4c4 0%, #9e768f 74%);"> 
+                <?php echo $_SESSION['cart'][$i] ?>
+              </p>
+            <?php } ?>
+            <button type="button" class="btn btn-primary">Buy Now</button>
+          </div>
+        </div>
       </div>
     <?php } ?>
-
-
+    
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
