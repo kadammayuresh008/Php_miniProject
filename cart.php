@@ -74,21 +74,23 @@
       </nav>
 
     <br>
-    <div class="container">
-        <div class="row" style="display: flex; justify-content: space-between;">
-            <?php for ($i=0; $i < sizeof($_SESSION['cart']); $i++){ ?>
-            <div class="card" style="width: 18rem;">
-               <img class="card-img-top" src="./fortnite.jpg" alt="Card image cap">
-               <div class="card-body">
-                 <h5 class="card-title">Fortnite</h5>
-                 <p> <?php echo $_SESSION['cart'][$i] ?></p>
-                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                 <a href="#" class="btn btn-primary">Buy</a>
-               </div>
-            </div>
-             <?php } ?>
-        </div>
-    </div>
+    <?php if(sizeof($_SESSION['cart'])!=0) { ?>
+      <div class="container">
+          <div class="row" style="display: flex; justify-content: space-between;">
+              <?php for ($i=0; $i < sizeof($_SESSION['cart']); $i++){ ?>
+              <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="./fortnite.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Fortnite</h5>
+                  <p> <?php echo $_SESSION['cart'][$i] ?></p>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Buy</a>
+                </div>
+              </div>
+              <?php } ?>
+          </div>
+      </div>
+    <?php } ?>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
