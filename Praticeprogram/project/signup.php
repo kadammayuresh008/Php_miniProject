@@ -1,4 +1,41 @@
 <?php
+// ************************************create database*************************************
+  // $servername = "localhost";
+  // $username = "root";
+  // $password = "";
+  // $conn = mysqli_connect($servername, $username, $password);
+  // if (!$conn) {
+  //   die("Connection failed: " . mysqli_connect_error());
+  // }
+  // echo "Connected successfully";
+  // // Create database
+  // $sql = "CREATE DATABASE Logindetails";
+
+  // $conn->close();
+  
+// ************************************create table*************************************
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "Logindetails";
+// $conn = new mysqli($servername, $username, $password, $dbname);
+// if ($conn->connect_error) {
+//   die("Connection failed: " . $conn->connect_error);
+// }
+
+// // sql to create table
+// $sql = "CREATE TABLE userdetails (
+// id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+// Name VARCHAR(30) NOT NULL,
+// Email VARCHAR(50),
+// Gender VARCHAR(30),
+// Password VARCHAR(30),
+// reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+// )";
+
+
+// $conn->close();
+
   session_start();
 ?>
 <!doctype html>
@@ -40,6 +77,8 @@ padding: 10px 105px 10px 10px;
 
     <div align="center">
         <?php 
+      
+
         $nameErr="";
         $emailErr="";
         $passwordErr="";
@@ -49,7 +88,7 @@ padding: 10px 105px 10px 10px;
                 $name = $_POST['name'];
                 $email = $_POST['email'];
                 $gender= $_POST['gender'];
-                $password = $_POST['password'];
+                $passwordform = $_POST['password'];
                 $conpassword = $_POST['conpassword'];
                 if (empty( $name)){
                   $nameErr = "Name is required";
@@ -63,7 +102,7 @@ padding: 10px 105px 10px 10px;
                 else{
                   $emailErr = "";
                 }
-                if (empty( $password)){
+                if (empty( $passwordform)){
                   $passwordErr = "password is required";
                 }
                 else{
@@ -75,7 +114,7 @@ padding: 10px 105px 10px 10px;
                   else{
                     $conpasswordErr = "";
                   }
-                if($password!=$conpassword){
+                if($passwordform!=$conpassword){
                   $conpasswordErr = "password should be same";
                 }
                 else{
@@ -88,13 +127,35 @@ padding: 10px 105px 10px 10px;
                   else{
                     $genderErr = " ";
                 }
-                if ($email=="kadam.ms@somaiya.edu" and $password=="12345" and $password==$conpassword and $name=="Mayuresh")
+                if ($passwordform==$conpassword)
                 {
                     $_SESSION["email"]=$email;
-                    $_SESSION["password"]=$password;
+                    $_SESSION["password"]=$passwordform;
                     $_SESSION["name"]=$name;
                     $_SESSION["gender"]=$gender;
                      header('Location: http://localhost/Praticeprogram/project/home.php?');
+                     //********************************************insert query********************************** 
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "Logindetails";
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+                        if ($conn->connect_error) {
+                          die("Connection failed: " . $conn->connect_error);
+                        }
+                        // $sql="INSERT INTO userdetails (Name, Email , Gender,Password)
+                        // VALUES ('".$name."','".$email."','" .$gender."','".$password."')";
+                        // if ($conn->query($sql) === TRUE) {
+                        //   echo "New record created successfully";
+                        // } else {
+                        //   echo "Error: " . $sql . "<br>" . $conn->error;
+                        // }
+                        $sql="insert into userdetails (Name, Email , Gender,Password)VALUES(?,?,?,?)";
+                        $pst=mysqli_prepare($conn,$sql);
+                        mysqli_stmt_bind_param($pst,"ssss",$name,$email,$gender,$passwordform);
+                        mysqli_stmt_execute($pst);
+                        $getResult=mysqli_stmt_get_result($pst);
+                        $conn->close();
                 }
             }
         ?>
