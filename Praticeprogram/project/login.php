@@ -56,21 +56,45 @@ $passwordErr="";
 if(isset($_POST["email"]) and isset($_POST["password"]))
 {
    $email=$_POST["email"];
-   $password=$_POST["password"];
-   if($email!="kadam.ms@somaiya.edu" and $password=="12345")
-   {
-      $emailErr="Email is incorrect.";
+   $passwordform=$_POST["password"];
+   //********************************************Search query********************************** 
+   $servername = "localhost";
+   $username = "root";
+   $password = "";
+   $dbname = "Logindetails";
+   $conn = new mysqli($servername, $username, $password, $dbname);
+   if ($conn->connect_error) {
+   die("Connection failed: " . $conn->connect_error);
    }
-   if($email=="kadam.ms@somaiya.edu" and $password!="12345")
+   $sql="SELECT * FROM userdetails where Email='".$_POST['email']."'";
+   $result = $conn->query($sql);
+
+   if ($result->num_rows > 0) {
+   while($row = $result->fetch_assoc()) {
+       if ($passwordform==$row["Password"])
    {
-      $passwordErr="Password is incorrect.";
+      $_SESSION["email"]=$row["Email"];
+      $_SESSION["password"]=$row["Password"];
+      header('Location: http://localhost/Praticeprogram/project/home.php');
    }
- if ($email=="kadam.ms@somaiya.edu" and $password=="12345")
-{
-   $_SESSION["email"]=$email;
-   $_SESSION["password"]=$password;
-     header('Location: http://localhost/Praticeprogram/project/home.php');
+   else{
+      echo '<script>alert("Password incorrect")</script>'; 
+   }
+  }
+} 
+else {
+  echo "0 results";
 }
+$conn->close();
+// validation check
+   // if($email!="kadam.ms@somaiya.edu" and $password=="12345")
+   // {
+   //    $emailErr="Email is incorrect.";
+   // }
+   // if($email=="kadam.ms@somaiya.edu" and $password!="12345")
+   // {
+   //    $passwordErr="Password is incorrect.";
+   // }
 }
 ?>
 <div>
