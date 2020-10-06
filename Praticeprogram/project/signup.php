@@ -13,7 +13,7 @@
 
   // $conn->close();
   
-// ************************************create table*************************************
+// ************************************create user table*************************************
 // $servername = "localhost";
 // $username = "root";
 // $password = "";
@@ -133,7 +133,6 @@ padding: 10px 105px 10px 10px;
                     $_SESSION["password"]=$passwordform;
                     $_SESSION["name"]=$name;
                     $_SESSION["gender"]=$gender;
-                     header('Location: http://localhost/Praticeprogram/project/home.php?');
                      //********************************************insert query********************************** 
                         $servername = "localhost";
                         $username = "root";
@@ -156,6 +155,8 @@ padding: 10px 105px 10px 10px;
                         mysqli_stmt_execute($pst);
                         $getResult=mysqli_stmt_get_result($pst);
                         $conn->close();
+                        echo '<div class="alert alert-success">User has been created.</div>';
+                        header('Location: http://localhost/Praticeprogram/project/login.php?');
                 }
             }
         ?>

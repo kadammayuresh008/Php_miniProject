@@ -39,51 +39,98 @@ if(isset($_POST['product'])=="data")
 header('Location: http://localhost/Praticeprogram/project/productdetails.php');
 }
 ?>
+
   <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"  method="post">
-  <button name="product" value="data">Add</button>
-    <button name="light" value="black">Logout</button>
-  </form>
-</nav>
-<h1 align="center">Welcome to home page.</h1>
-<div class="col-sm-1"></div>
-<div class="col-sm-10" align="center">
-<?php
+  <div>
+  <?php
 if(isset($_SESSION["name"])){
-echo("<h4>Name:</h4>");
 $name=$_SESSION["name"];
-echo $name;
-echo("<br/>");
+echo ("<b>$name</b>");
 }
 else
 {
     $name="";
 }
-?>
-<?php
-if(isset($_SESSION["gender"])){
-echo("<h4>Gender:</h4>");
-$gender=$_SESSION["gender"];
-echo $gender;
-echo("<br/>");
-}
-else
-{
-    $gender="";
-}
-?>
-<h4>Email:</h4>
-<?php
-$email=$_SESSION["email"];
-echo $email;
-echo("<br/>");
-?>
-<h4>Password:</h4>
-<?php
-$password=$_SESSION["password"];
-echo $password;
-echo("<br/>");
-?>
+?></div>
+  <button name="product" value="data">Add</button>
+    <button name="light" value="black">Logout</button>
+  </form>
+</nav>
 <br>
-<div>
-</body>
+<div class="container">
+ <!-- carousel starts here -->
+ <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="./fortnite.jpg" alt="First slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="./remant.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="./fortnite.jpg" alt="third slide">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+
+    <!-- carousel ends here -->
+
+        <br>
+
+    <div class="container">
+        <div class="row" style="display: flex; justify-content: space-between;">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./fortnite.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Fortnite</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Buy</a>
+              <a href='index.php?pId="p1"'>
+                <button type="button" class="btn btn-secondary">Add to Cart</button>
+              </a>
+            </div>
+          </div>
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./remant.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Remant</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Buy</a>
+              <a href='index.php?pId="p2"'>
+                <button type="button" class="btn btn-secondary">Add to Cart</button>
+              </a>
+            </div>
+          </div>
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="./fortnite.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Fortnite</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Buy</a>
+              <a href='index.php?pId="p3"'>
+                <button type="button" class="btn btn-secondary">Add to Cart</button>
+              </a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+</div></body>
 </html>

@@ -75,6 +75,8 @@ if(isset($_POST["email"]) and isset($_POST["password"]))
    {
       $_SESSION["email"]=$row["Email"];
       $_SESSION["password"]=$row["Password"];
+      $_SESSION["name"]=$row["Name"];
+      $_SESSION["gender"]=$row["Gender"];
       header('Location: http://localhost/Praticeprogram/project/home.php');
    }
    else{
@@ -83,7 +85,7 @@ if(isset($_POST["email"]) and isset($_POST["password"]))
   }
 } 
 else {
-  echo "0 results";
+  echo '<script>alert("Invalid credentials")</script>';
 }
 $conn->close();
 // validation check

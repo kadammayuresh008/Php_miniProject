@@ -1,3 +1,35 @@
+<?php 
+// // ************************************create Product table*************************************
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "Logindetails";
+// $conn = new mysqli($servername, $username, $password, $dbname);
+// if ($conn->connect_error) {
+//   die("Connection failed: " . $conn->connect_error);
+// }
+
+// // // sql to create table
+// $sql = "CREATE TABLE productdetails (
+// id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+// UserName VARCHAR(30) NOT NULL,
+// ProductType VARCHAR(30) NOT NULL,
+// ProductName VARCHAR(30) NOT NULL,
+// ProductColor VARCHAR(30) NOT NULL,
+// ProductDescription VARCHAR(30) NOT NULL,
+// ProductImage longtext NOT NULL,
+// reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+// )";
+
+// if ($conn->query($sql) === TRUE) {
+//   echo "Table Productdetails created successfully";
+// } else {
+//   echo "Error creating table: " . $conn->error;
+// }
+
+// $conn->close();
+session_start();
+?>
 <html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,6 +41,10 @@ body{
 }
 input{
 border-radius:20px;
+padding: 10px 10px 10px 10px;
+}
+textarea{
+  border-radius:20px;
 padding: 10px 10px 10px 10px;
 }
 button
@@ -35,7 +71,19 @@ if(isset($_POST['product'])=="data")
 header('Location: http://localhost/Praticeprogram/project/productdetails.php');
 }
 ?>
-  <form class="form-inline" action="home2.php"  method="post" enctype="multipart/form-data">
+   <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"  method="post">
+  <div>
+      <?php
+      if(isset($_SESSION["name"])){
+      $name=$_SESSION["name"];
+      $GLOBALS['name']=$name;
+      echo("<b>$name</b>");
+      }
+      else
+      {
+          $name="";
+      }
+      ?></div>
   <button name="product" value="data">Add</button>
     <button name="light" value="black">Logout</button>
   </form>
@@ -45,6 +93,13 @@ header('Location: http://localhost/Praticeprogram/project/productdetails.php');
 <h2>Upload Product</h2>
 <br>
 <form action="home2.php" method="Post" enctype="multipart/form-data">
+<label><b>Product Owner</b></label>
+<input type="text" placeholder="<?php echo($name)?>" name="name" disabled>
+<?php 
+$_SESSION["name"]=$name;
+?>
+<br>
+<br>
 <label><b>Product type</b></label>
 <input type="text" placeholder="Enter Type" name="type">
 <br>
@@ -57,18 +112,15 @@ header('Location: http://localhost/Praticeprogram/project/productdetails.php');
 <input type="text" placeholder="Enter Color" name="color">
 <br>
 <br>
-<label><b>The type of device required to play</b></label>
+<label><b>Description</b></label>
 <br>
-<br>
-<input type="checkbox" id="vehicle1" name="vehicle[]" value="Phone"><b>Phone</b></input>
-  <input type="checkbox" id="vehicle2" name="vehicle[]" value="Pc"><b>Pc</b></input>
-  <input type="checkbox" id="vehicle3" name="vehicle[]" value="Laptop"><b>Laptop</b></input>
+<textarea  rows="4" cols="40" placeholder="Write description here" name="desc"></textarea>
   <br><br>
   <b>Select image to upload:</b>
   <br>
   <input type="file" name="fileToUpload" id="fileToUpload">
   <br>
-  <input type="submit" value="Upload Image" name="submit">
+  <input type="submit" value="submit" name="submit">
 </form>
 <br>
 <div>

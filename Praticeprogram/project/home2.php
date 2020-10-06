@@ -8,37 +8,41 @@ if(isset($_POST["submit"])) {
   if($check !== false) {
     $uploadOk = 1;
   } else {
-    echo "File is not an image.";
+    echo '<div class="alert alert-danger">File is not an image.</div>';
     $uploadOk = 0;
   }
 }
 
 if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
+  echo '<div class="alert alert-danger">Sorry, file already exists.</div>';
     $uploadOk = 0;
   }
 
   if ($_FILES["fileToUpload"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
+    echo '<div class="alert alert-danger">Sorry, your file is too large.</div>';
     $uploadOk = 0;
   }
 
   if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
-  echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+
+  echo '<div class="alert alert-danger">Sorry, only JPG, JPEG, PNG & GIF files are allowed.</div>';
   $uploadOk = 0;
 }
 
 if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded.";
+  echo '<div class="alert alert-danger">Sorry, your file was not uploaded.</div>';
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-    echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    // echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    echo '<div class="alert alert-success">Sucess, your file uploaded.</div>';
   } else {
-    echo "Sorry, there was an error uploading your file.";
+    echo '<div class="alert alert-danger">Sorry, your file was not uploaded.</div>';
   }
   $url='uploads/'.$_FILES["fileToUpload"]["name"];
+  $GLOBALS['url']=$url;
 }
+session_start();
 ?>
 <html>
 <meta charset="utf-8">
@@ -82,11 +86,11 @@ header('Location: http://localhost/Praticeprogram/project/productdetails.php');
 <br>
 <br>
 <div class="row">
-<div class="col-sm-2"></div>
-<div class="col-sm-10">
-<h2>Product details</h2>
-<div class="card" style="width: 18rem;">
-<?php echo "<img src='{$url}' alt='Image not found.' style='width:280px; height:200px;'>"; ?>
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
+<div class="card" style="width: 40rem;padding-left:10%;" >
+<h2>Current Uploaded Product details</h2>
+<?php echo "<img src='".$url."' alt='Image not found.' style='width:280px; height:200px;'>"; ?>
   <div class="card-body">
   <?php
 if(!isset($_POST['type'])) {
@@ -116,17 +120,50 @@ if(!isset($_POST['color'])) {
     echo $_POST['color'];
     echo "<br/>";
   }
-  if(!isset($_POST['vehicle'])) {
-    echo "<h5>Device reqired</h5>";
-    foreach($_POST['vehicle'] as $value){
-      echo "$value <br>";
-    }
+  if(!isset($_POST['desc'])) {
+    echo "<h5>Product Description</h5>";
+    echo substr($_POST['desc'],0,30);
+    echo "<br/>";
     } else {
-      echo "<h5>Device reqired</h5>";
-      foreach($_POST['vehicle'] as $value){
-        echo "$value <br>";
+    echo "<h5>Product Description</h5>";
+    echo substr($_POST['desc'],0,30);
+    echo "<br/>";
       }
+    //********************************************insert query********************************** 
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "Logindetails";
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
     }
+    $type=$_POST['type'];
+    $product_name=$_POST['Name'];
+    $color=$_POST['color'];
+    $desc=$_POST['desc'];
+    $name=$_SESSION['name'];
+
+    // if(isset($_SESSION["name"])){
+    //   $name=$_SESSION["name"];
+    //   echo ("<b>$name</b>");
+    //   }
+    //   else
+    //   {
+    //       $name="";
+    //   }
+    $sql="insert into productdetails(UserName,ProductType, ProductName , ProductColor,ProductDescription,ProductImage)
+    VALUES('".$name."','".$type."','".$product_name."','".$color."','".$desc."','".$GLOBALS['url']."')";
+     if ($conn->query($sql) === TRUE) {
+      echo "<br/>";
+      echo '<div class="alert alert-success">Product is set to sell.</div>';
+        } else 
+        {
+          echo "<br/>";
+          echo '<div class="alert alert-danger">Product not uploaded.</div>';
+        }
+    $conn->close();
+    
 ?>
 </div>
 </div>
