@@ -89,44 +89,41 @@ else
     <!-- carousel ends here -->
 
         <br>
-
-    <div class="container">
+    <?php 
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $dbname = "Logindetails";
+      $conn = new mysqli($servername, $username, $password, $dbname);
+      if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+      }
+      $sql="SELECT * FROM productdetails";
+      // $result1 = $conn->query($sql);
+  //index.php?pId="p1"  
+  // echo(count($result1->fetch_all())/3);
+  $result = $conn->query($sql);
+      if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()) {
+        echo nl2br('
+        <div class="container">
         <div class="row" style="display: flex; justify-content: space-between;">
           <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="./fortnite.jpg" alt="Card image cap">
+            <img class="card-img-top" src="'.$row["ProductImage"].'" alt="Card image cap">
             <div class="card-body">
-              <h5 class="card-title">Fortnite</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 class="card-title">'.$row["ProductName"].'</h5>
+              <p class="card-text">'.$row['ProductDescription'].'</p>
               <a href="#" class="btn btn-primary">Buy</a>
-              <a href='index.php?pId="p1"'>
-                <button type="button" class="btn btn-secondary">Add to Cart</button>
-              </a>
-            </div>
-          </div>
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="./remant.jpg" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Remant</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Buy</a>
-              <a href='index.php?pId="p2"'>
-                <button type="button" class="btn btn-secondary">Add to Cart</button>
-              </a>
-            </div>
-          </div>
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="./fortnite.jpg" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Fortnite</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Buy</a>
-              <a href='index.php?pId="p3"'>
+              <a href="">
                 <button type="button" class="btn btn-secondary">Add to Cart</button>
               </a>
             </div>
           </div>
         </div>
     </div>
+        ');
+     }
+   } ?>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
