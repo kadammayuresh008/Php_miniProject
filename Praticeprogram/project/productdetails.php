@@ -101,24 +101,24 @@ $_SESSION["name"]=$name;
 <br>
 <br>
 <label><b>Product type</b></label>
-<input type="text" placeholder="Enter Type" name="type">
+<input type="text" placeholder="Enter Type" name="type" required>
 <br>
 <br>
 <label><b>Product Name</b></label>
-<input type="text" placeholder="Enter Name" name="Name">
+<input type="text" placeholder="Enter Name" name="Name"  required>
 <br>
 <br>
 <label><b>Product Color</b></label>
-<input type="text" placeholder="Enter Color" name="color">
+<input type="text" placeholder="Enter Color" name="color"  required>
 <br>
 <br>
 <label><b>Description</b></label>
 <br>
-<textarea  rows="4" cols="40" placeholder="Write description here" name="desc"></textarea>
+<textarea  rows="4" cols="40" placeholder="Write description here" name="desc"  required></textarea>
   <br><br>
   <b>Select image to upload:</b>
   <br>
-  <input type="file" name="fileToUpload" id="fileToUpload">
+  <input type="file" name="fileToUpload" id="fileToUpload" required>
   <br>
   <input type="submit" value="submit" name="submit">
 </form>
