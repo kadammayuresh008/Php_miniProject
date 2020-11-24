@@ -15,6 +15,7 @@ if(isset($_POST["submit"])) {
 
 if (file_exists($target_file)) {
   echo '<div class="alert alert-danger">Sorry, file already exists.</div>';
+  $count=1;
     $uploadOk = 0;
   }
 
@@ -39,7 +40,8 @@ if ($uploadOk == 0) {
   } else {
     echo '<div class="alert alert-danger">Sorry, your file was not uploaded.</div>';
   }
-  $url='uploads/'.$_FILES["fileToUpload"]["name"];
+  // $url='uploads/'.$_FILES["fileToUpload"]["name"];
+  $url=$target_file;
   $GLOBALS['url']=$url;
 }
 session_start();
@@ -112,12 +114,12 @@ if(!isset($_POST['Name'])) {
   echo "<br/>";
 }
 if(!isset($_POST['color'])) {
-  echo "<h5>Product color</h5>";
-    echo  $_POST['color'];
+  echo "<h5>Product cost</h5>";
+    echo  "Rs.".$_POST['color'];
     echo "<br/>";
   } else {
-    echo "<h5>Product color</h5>";
-    echo $_POST['color'];
+    echo "<h5>Product cost</h5>";
+    echo "Rs.".$_POST['color'];
     echo "<br/>";
   }
   if(!isset($_POST['desc'])) {
@@ -152,6 +154,25 @@ if(!isset($_POST['color'])) {
     //   {
     //       $name="";
     //   }
+
+
+  // Selecting all the images from the database 
+  $sql="SELECT ProductImage from productdetails";
+  $count=0;
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      if(substr($row["ProductImage"],0,16).substr($row["ProductImage"],17)==$GLOBALS['url'])
+      {
+      $count+=1; 
+    }
+    }
+    $GLOBALS['url']='uploads/'.substr($GLOBALS['url'],8,strlen($GLOBALS['url'])-12).$count.substr($GLOBALS['url'],strlen($GLOBALS['url'])-4);
+  } 
+  
+
+
+
     $sql="insert into productdetails(UserName,ProductType, ProductName , ProductColor,ProductDescription,ProductImage)
     VALUES('".$name."','".$type."','".$product_name."','".$color."','".$desc."','".$GLOBALS['url']."')";
      if ($conn->query($sql) === TRUE) {

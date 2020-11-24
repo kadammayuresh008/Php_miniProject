@@ -71,7 +71,8 @@ if(isset($_POST["email"]) and isset($_POST["password"]))
 
    if ($result->num_rows > 0) {
    while($row = $result->fetch_assoc()) {
-       if ($passwordform==$row["Password"])
+      $encrypt_password= password_hash($passwordform,PASSWORD_DEFAULT);
+      if (password_verify($passwordform,$row["Password"]))
    {
       $_SESSION["email"]=$row["Email"];
       $_SESSION["password"]=$row["Password"];

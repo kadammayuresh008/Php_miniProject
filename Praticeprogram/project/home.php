@@ -20,7 +20,8 @@ border-radius:20px;
 padding: 5px 10px 5px 10px;
 border-color:linear-gradient(to top right, #33ccff 1%, #ff99cc 57%);
 }
-nav{
+nav
+{
     background: linear-gradient(to bottom, #33ccff 0%, #3333cc 100%);
 }
 </style>
@@ -34,6 +35,11 @@ if(isset($_POST['light'])=="black")
 session_destroy();
 header('Location: http://localhost/Praticeprogram/project/login.php');
 }
+if(isset($_POST['light'])=="purple")
+{
+session_destroy();
+header('Location: http://localhost/Praticeprogram/project/signup.php');
+}
 if(isset($_POST['product'])=="data")
 {
 header('Location: http://localhost/Praticeprogram/project/productdetails.php');
@@ -46,14 +52,22 @@ header('Location: http://localhost/Praticeprogram/project/productdetails.php');
 if(isset($_SESSION["name"])){
 $name=$_SESSION["name"];
 echo ("<b>$name</b>");
+echo('
+</div>
+  <button name="product" value="data">Add</button>
+    <button name="light" value="black">Logout</button>
+    ');
 }
 else
 {
     $name="";
+    echo('
+</div>
+    <button name="light" value="black">Login</button>
+    <button name="light" value="purple">signup</button>
+    ');
 }
-?></div>
-  <button name="product" value="data">Add</button>
-    <button name="light" value="black">Logout</button>
+?>
   </form>
 </nav>
 <br>
@@ -117,12 +131,13 @@ else
         $counter+=1;
         $row = $result->fetch_assoc();
         echo('
-          <div class="card" style="width: 18rem;height:20rem;margin-left:10px;margin-right:10px;">
-            <img class="card-img-top" src="'.$row["ProductImage"].'" alt="Card image cap" style="width: 18rem;height:10rem">
+          <div class="card" style="width: 18rem;height:22rem;margin-left:10px;margin-right:10px;">
+            <img class="card-img-top" src="'.substr($row["ProductImage"],0,strlen($row["ProductImage"])-5).substr($row["ProductImage"],strlen($row["ProductImage"])-4).'" alt="Card image cap" style="width: 18rem;height:10rem">
             <div class="card-body">
               <h5 class="card-title">'.$row["ProductName"].'</h5>
               <p class="card-text">'.substr($row['ProductDescription'],0,25).'....'.'</p>
-              <a href="#" class="btn btn-primary">Buy</a>
+              <p class="card-text">'."<b>Rs.</b>".$row["ProductColor"].'</p>
+              <a href="http://localhost/Praticeprogram/project/buy.php?id='.$row["id"].'" class="btn btn-primary">Buy</a>
               <a href="#">
                 <button type="button" class="btn btn-secondary">Add to Cart</button>
               </a>

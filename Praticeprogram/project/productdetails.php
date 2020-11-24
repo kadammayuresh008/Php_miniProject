@@ -9,6 +9,7 @@
 //   die("Connection failed: " . $conn->connect_error);
 // }
 
+
 // // // sql to create table
 // $sql = "CREATE TABLE productdetails (
 // id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -68,7 +69,7 @@ header('Location: http://localhost/Praticeprogram/project/login.php');
 }
 if(isset($_POST['product'])=="data")
 {
-header('Location: http://localhost/Praticeprogram/project/productdetails.php');
+// header('Location: http://localhost/Praticeprogram/project/productdetails.php');
 }
 ?>
    <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"  method="post">
@@ -108,8 +109,8 @@ $_SESSION["name"]=$name;
 <input type="text" placeholder="Enter Name" name="Name"  required>
 <br>
 <br>
-<label><b>Product Color</b></label>
-<input type="text" placeholder="Enter Color" name="color"  required>
+<label><b>Product Cost</b></label>
+<input type="text" placeholder="Enter Cost" name="color"  required>
 <br>
 <br>
 <label><b>Description</b></label>
@@ -120,6 +121,7 @@ $_SESSION["name"]=$name;
   <br>
   <input type="file" name="fileToUpload" id="fileToUpload" required>
   <br>
+   
   <input type="submit" value="submit" name="submit">
 </form>
 <br>

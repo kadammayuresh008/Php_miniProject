@@ -151,7 +151,8 @@ padding: 10px 105px 10px 10px;
                         // }
                         $sql="insert into userdetails (Name, Email , Gender,Password)VALUES(?,?,?,?)";
                         $pst=mysqli_prepare($conn,$sql);
-                        mysqli_stmt_bind_param($pst,"ssss",$name,$email,$gender,$passwordform);
+                        $encrypt_password= password_hash($passwordform,PASSWORD_DEFAULT);
+                        mysqli_stmt_bind_param($pst,"ssss",$name,$email,$gender,$encrypt_password);
                         mysqli_stmt_execute($pst);
                         $getResult=mysqli_stmt_get_result($pst);
                         $conn->close();
