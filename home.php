@@ -1,5 +1,30 @@
 <?php
-session_start();
+  session_start();
+  $name = "noOfProducts";
+  $val = 0;
+  if(!isset($_COOKIE["noOfProducts"])){
+    setcookie($GLOBALS['name'],$GLOBALS['val'],time()+(640000),"/");
+  }
+  else{
+    $GLOBALS['val'] = $_COOKIE["noOfProducts"];
+  }
+
+  function increment(){
+    $GLOBALS['val']+=1;
+    setcookie($GLOBALS['name'],$GLOBALS['val'],time()+(640000),"/");
+  }
+
+  if (isset($_GET['pId'])) {
+    increment();
+    if(!isset($_SESSION['cart'])){
+      $_SESSION['cart']=array();
+      array_push($_SESSION['cart'],$_GET['pId']);
+    }
+    else{
+      array_push($_SESSION['cart'],$_GET['pId']);
+    }
+    
+  }
 ?>
 <!doctype html>
 <html>
@@ -8,7 +33,7 @@ session_start();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <head>
 <title>
-USER LOGIN
+Game Store
 </title>
 <style>
 /* body{
@@ -33,44 +58,52 @@ nav
 if(isset($_POST['light'])=="black")
 {
 session_destroy();
-header('Location: http://localhost/Praticeprogram/project/login.php');
+header('Location: http://localhost/phpCollege/PHPMiniProject/login.php');
 }
 if(isset($_POST['light'])=="purple")
 {
 session_destroy();
-header('Location: http://localhost/Praticeprogram/project/signup.php');
+header('Location: http://localhost/phpCollege/PHPMiniProject/signup.php');
 }
 if(isset($_POST['product'])=="data")
 {
-header('Location: http://localhost/Praticeprogram/project/productdetails.php');
+header('Location: http://localhost/phpCollege/PHPMiniProject/productdetails.php');
 }
 ?>
 
   <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"  method="post">
   <div>
   <?php
-if(isset($_SESSION["name"])){
-$name=$_SESSION["name"];
-echo ("<b>$name</b>");
-echo('
-</div>
-  <button name="product" value="data">Add</button>
-    <button name="light" value="black">Logout</button>
-    ');
-}
-else
-{
+  if(isset($_SESSION["name"])){
+    $name=$_SESSION["name"];
+    echo ("<b>$name</b>");
+    echo('
+    </div>
+      <button name="product" value="data">Add</button>
+        <button name="light" value="black">Logout</button>
+        ');
+  }
+  else
+  {
     $name="";
     echo('
-</div>
-    <button name="light" value="black">Login</button>
-    <button name="light" value="purple">signup</button>
-    ');
-}
+    </div>
+      <button name="light" value="black">Login</button>
+      <button name="light" value="purple">signup</button>
+      ');
+  }
 ?>
+  
+  <button name="product" value="data">
+  <a style="margin-right: 10px; color: black;" href="./cart.php">CART</a></button>
   </form>
 </nav>
 <br>
+<style>
+  .w-100{
+    height: 510px !important;
+  }
+</style>
 <div class="container">
  <!-- carousel starts here -->
  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -81,13 +114,13 @@ else
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="./fortnite.jpg" alt="First slide">
+          <img class="d-block w-100" src="uploads/fortnite.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="./remant.jpg" alt="Second slide">
+          <img class="d-block w-100" src="uploads/remant.jpg" alt="Second slide">
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="./fortnite.jpg" alt="third slide">
+          <img class="d-block w-100" src="uploads/fortnite.jpg" alt="third slide">
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -132,13 +165,13 @@ else
         $row = $result->fetch_assoc();
         echo('
           <div class="card" style="width: 18rem;height:22rem;margin-left:10px;margin-right:10px;">
-            <img class="card-img-top" src="'.substr($row["ProductImage"],0,strlen($row["ProductImage"])-5).substr($row["ProductImage"],strlen($row["ProductImage"])-4).'" alt="Card image cap" style="width: 18rem;height:10rem">
+            <img class="card-img-top" src="'.$row["ProductImage"].'" alt="Card image cap" style="width: 18rem;height:10rem">
             <div class="card-body">
               <h5 class="card-title">'.$row["ProductName"].'</h5>
               <p class="card-text">'.substr($row['ProductDescription'],0,25).'....'.'</p>
               <p class="card-text">'."<b>Rs.</b>".$row["ProductColor"].'</p>
-              <a href="http://localhost/Praticeprogram/project/buy.php?id='.$row["id"].'" class="btn btn-primary">Buy</a>
-              <a href="#">
+              <a href="http://localhost/phpCollege/PHPMiniProject/buy.php?id='.$row["id"].'" class="btn btn-primary">Buy</a>
+              <a href="http://localhost/phpCollege/PHPMiniProject/home.php?pId='.$row["id"].'">
                 <button type="button" class="btn btn-secondary">Add to Cart</button>
               </a>
             </div>
@@ -164,3 +197,6 @@ else
 
 </div></body>
 </html>
+
+
+

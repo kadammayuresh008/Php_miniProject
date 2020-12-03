@@ -1,5 +1,5 @@
 <?php
-$target_dir = "uploads/";
+$target_dir = "./uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -72,11 +72,11 @@ border-color:linear-gradient(to top right, #33ccff 1%, #ff99cc 57%);
 if(isset($_POST['light'])=="black")
 {
 session_destroy();
-header('Location: http://localhost/Praticeprogram/project/login.php');
+header('Location: http://localhost/phpCollege/PHPMiniProject/login.php');
 }
 if(isset($_POST['product'])=="data")
 {
-header('Location: http://localhost/Praticeprogram/project/productdetails.php');
+header('Location: http://localhost/phpCollege/PHPMiniProject/productdetails.php');
 }
 ?>
   <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"  method="post">
@@ -92,7 +92,7 @@ header('Location: http://localhost/Praticeprogram/project/productdetails.php');
 <div class="col-sm-6">
 <div class="card" style="width: 40rem;padding-left:10%;" >
 <h2>Current Uploaded Product details</h2>
-<?php echo "<img src='".$url."' alt='Image not found.' style='width:280px; height:200px;'>"; ?>
+<?php echo "<img src='uploads/eg.png' alt='Image not found.' style='width:280px; height:200px;'>"; ?>
   <div class="card-body">
   <?php
 if(!isset($_POST['type'])) {
@@ -167,7 +167,7 @@ if(!isset($_POST['color'])) {
       $count+=1; 
     }
     }
-    $GLOBALS['url']='uploads/'.substr($GLOBALS['url'],8,strlen($GLOBALS['url'])-12).$count.substr($GLOBALS['url'],strlen($GLOBALS['url'])-4);
+    $GLOBALS['url']=''.substr($GLOBALS['url'],8,strlen($GLOBALS['url'])-12).$count.substr($GLOBALS['url'],strlen($GLOBALS['url'])-4);
   } 
   
 

@@ -31,11 +31,11 @@ border-color:linear-gradient(to top right, #33ccff 1%, #ff99cc 57%);
   <?php
 if(isset($_POST['light'])=="black")
 {
-    header('Location: http://localhost/Praticeprogram/project/home.php');
+    header('Location: http://localhost/phpCollege/PHPMiniProject/home.php');
 }
 if(isset($_POST['product'])=="data")
 {
-header('Location: http://localhost/Praticeprogram/project/productdetails.php');
+header('Location: http://localhost/phpCollege/PHPMiniProject/productdetails.php');
 }
 ?>
   <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"  method="post">
@@ -66,7 +66,7 @@ header('Location: http://localhost/Praticeprogram/project/productdetails.php');
 <div class="card" style="width: 40rem;padding-left:10%;" >
 <br>
 <h2>Receipt</h2>
-<img src='.substr($row["ProductImage"],0,strlen($row["ProductImage"])-5).substr($row["ProductImage"],strlen($row["ProductImage"])-4).' alt="Image not found." style="width:280px; height:200px;">
+<img src='.$row["ProductImage"].' alt="Image not found." style="width:280px; height:200px;">
 <h5>Product Name</h5>
 <p>'.$row["ProductName"].'</p>
 <h5>Product Type</h5>
